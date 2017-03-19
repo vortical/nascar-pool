@@ -1,0 +1,27 @@
+<div class="four wide column center aligned votes">
+  <div class="ui statistic">
+    <div class="value">
+      {{participant.points}}
+    </div>
+    <div class="label">
+      Points
+    </div>
+  </div>
+</div>
+
+<div class="ten wide column">
+  <div class="ui large header">
+    ({{participant.position}}) {{participant.name}}
+  </div>
+
+  <div class="meta">
+    <strong>
+    <span class="driverstat">{{participant.wins}} wins, </span>
+    <span class="driverstat">{{participant.top5}} top 5's, </span>
+    <span class="driverstat">{{participant.top10}} top 10's</span>
+  </strong>
+  </div>
+
+  <driver-summary *ngFor="let driver of participant.drivers" [driver]="driver"></driver-summary>
+
+</div>
