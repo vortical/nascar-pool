@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Driver, Participant, DriverSelection } from './driver.model';
 import 'rxjs/add/operator/map';
 
-const POINT_FEED_URL = 'http://www.nascar.com/cacher/2017/1/points-feed.json';
+const POINT_FEED_URL = 'https://www.nascar.com/cacher/2017/1/points-feed.json';
 
 const participants = [
   new Participant({
@@ -263,6 +263,8 @@ const participants = [
 @Injectable()
 export class NascarService {
 
+  drivers: Observable<Driver[]>;
+
   constructor(private http: Http) {}
 
 
@@ -298,7 +300,12 @@ export class NascarService {
       })
 
       let sortedParticpants = participants.sort((a: Participant, b: Participant) => b.totalPoints() - a.totalPoints());
-      sortedParticpants.forEach((p: Participant, i) => p.position = i+1)
+
+      let leaderPoints = sortedParticpants[0].points;
+      sortedParticpants.forEach((p: Participant, i) => {
+        p.position = i+1;
+        p.pointsBehind = leaderPoints - p.points;
+      });
 
 
       return sortedParticpants;
@@ -306,12 +313,14 @@ export class NascarService {
   }
 
   getDrivers(): Observable<Driver[]> {
-
-    return this.http.get(POINT_FEED_URL)
-      .map((response: Response) => {
-        return (<any>response.json()).map( driver => {
-          return Driver.mapFromObject(driver);
-        })
-    })
+    if (!this.drivers){
+      this.drivers = this.http.get(POINT_FEED_URL)
+        .map((response: Response) => {
+          return (<any>response.json()).map( driver => {
+            return Driver.mapFromObject(driver);
+          })
+      })
+    }
+    return this.drivers;
   }
 }

@@ -6,6 +6,12 @@
     <div class="label">
       Points
     </div>
+
+    <div *ngIf="participant.position > 1"class="label">
+      <div class="meta">
+      -{{participant.pointsBehind}}
+    </div>
+    </div>
   </div>
 </div>
 
@@ -21,7 +27,5 @@
     <span class="driverstat">{{participant.top10}} top 10's</span>
   </strong>
   </div>
-
   <driver-summary *ngFor="let driver of participant.drivers" [driver]="driver"></driver-summary>
-
 </div>

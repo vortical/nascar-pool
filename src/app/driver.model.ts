@@ -7,6 +7,7 @@ export class Participant{
   top5: number;
   top10: number;
   name: string;
+  pointsBehind: number;
   drivers: DriverSelection[];
 
   constructor(data: any){
@@ -31,7 +32,7 @@ export class DriverGroup{
 
 export class DriverSelection{
   points: number;
-  
+
   constructor(public groupId: number, public name: string){
 
   }
