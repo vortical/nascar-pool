@@ -1,5 +1,6 @@
 @import './assets/vendor/semantic.min.css';
 
+
 .ui.menu {
     margin-right: 1.5em;
     background: #000;
@@ -7,6 +8,14 @@
 
 .ui.header {
   color: #FFF;
+}
+
+div.gainPos {
+  color: blue;
+}
+
+div.losePos {
+  color: red;
 }
 
 div.ui.header {

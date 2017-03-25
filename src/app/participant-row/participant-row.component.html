@@ -3,29 +3,95 @@
     <div class="value">
       {{participant.points}}
     </div>
-    <div class="label">
-      Points
-    </div>
 
-    <div *ngIf="participant.position > 1"class="label">
-      <div class="meta">
-      -{{participant.pointsBehind}}
-    </div>
-    </div>
+      <div class="label">
+        Points
+      </div>
+
+        <div class="meta">
+        -{{participant.pointsBehind}}
+      </div>
   </div>
+  <ul class="ui big horizontal list voters">
+
+    <li *ngIf="participant.deltaPosition() > 0" class="item">
+
+      <div class="gainPos">
+        <span class="meta">({{participant.lastRacePoints}})</span>
+        <i class="arrow up icon"></i>
+        {{participant.deltaPositionAsString()}}
+      </div>
+    </li>
+
+    <li *ngIf="participant.deltaPosition() < 0 &&  participant.deltaPosition()> -3" class="item">
+      <div class="losePos">
+        <span class="meta">({{participant.lastRacePoints}})</span>
+        <i class="arrow down icon"></i>
+        {{participant.deltaPositionAsString()}}
+      </div>
+    </li>
+    <li *ngIf="participant.deltaPosition() < -2" class="item">
+      <div class="losePos">
+        <span class="meta">({{participant.lastRacePoints}})</span>
+        <i class="emergency icon"></i>
+        {{participant.deltaPositionAsString()}}
+      </div>
+    </li>
+
+    <li *ngIf="participant.deltaPosition() == 0" class="item">
+      <div>
+        <span class="meta">({{participant.lastRacePoints}})</span>
+        <i class="minus icon"></i>
+        {{participant.deltaPositionAsString()}}
+      </div>
+    </li>
+  </ul>
 </div>
 
-<div class="ten wide column">
+<div class="twelve wide column">
   <div class="ui large header">
     ({{participant.position}}) {{participant.name}}
   </div>
-
   <div class="meta">
     <strong>
-    <span class="driverstat">{{participant.wins}} wins, </span>
-    <span class="driverstat">{{participant.top5}} top 5's, </span>
-    <span class="driverstat">{{participant.top10}} top 10's</span>
+    <span class="driverstat">{{participant.wins}} victoires, </span>
+    <span class="driverstat">{{participant.top5}} top 5, </span>
+    <span class="driverstat">{{participant.top10}} top 10</span>
   </strong>
   </div>
-  <driver-summary *ngFor="let driver of participant.drivers" [driver]="driver"></driver-summary>
+
+
+
+
+  <div *ngIf="showDriverSummaries">
+    <driver-summary *ngFor="let driver of participant.drivers" [driver]="driver"></driver-summary>
+  </div>
 </div>
+
+
+<!--
+
+  {{participant.deltaPositionAsString()}} {{participant.name}} {{participant.points - participant.lastRacePoints}}
+
+<div class="twelve wide column">
+  <a class="ui large header" href="{{ link }}">
+    {{ article.title }}
+  </a>
+  <div class="meta">({{ article.domain()}})</div>
+
+  <ul class="ui big horizontal list voters">
+    <li class="item">
+      <a href (click)="voteUp()">
+        <i class="arrow up icon"></i>
+        upvote
+      </a>
+    </li>
+    <li class="item">
+      <a href (click)="voteDown()">
+        <i class="arrow down icon"></i>
+        downvote
+      </a>
+    </li>
+  </ul>
+</div>
+-->

@@ -6,7 +6,7 @@ import { Participant } from '../driver.model';
   selector: 'participant-row',
   templateUrl: './participant-row.component.html',
   styleUrls: ['./participant-row.component.css'],
-  inputs:['participant'],
+  inputs:['participant','showDriverSummaries'],
   host: {
     class: 'row'
   }

@@ -8,6 +8,7 @@ import { StandingsComponent } from './standings/standings.component';
 import { NascarService } from './nascar.service';
 import { ParticipantRowComponent } from './participant-row/participant-row.component';
 import { DriverSummaryComponent } from './driver-summary/driver-summary.component';
+import { RaceDescriptionComponent } from './race-description/race-description.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { DriverSummaryComponent } from './driver-summary/driver-summary.componen
     AppComponent,
     StandingsComponent,
     ParticipantRowComponent,
-    DriverSummaryComponent
+    DriverSummaryComponent,
+    RaceDescriptionComponent
   ],
   imports: [
     BrowserModule,

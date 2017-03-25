@@ -15,6 +15,8 @@ export class StandingsComponent implements OnInit {
   races: RaceDescription[];
   raceResults: DriverRaceResult[];
   participants: Participant[];
+  latestRaceDescription: RaceDescription;
+  showDriverSummaries: boolean = true;
 
   constructor(private nascarService: NascarService) {
         this.drivers = []
@@ -32,9 +34,14 @@ export class StandingsComponent implements OnInit {
     });
 
     this.nascarService.getLastRaceResults().subscribe( (raceResults: DriverRaceResult[]) => {
-      console.log("Got Races", raceResults);
+      console.log("Latest Race Results", raceResults);
       this.raceResults = raceResults;
     });
+
+    this.nascarService.getLatestRaceDescription().subscribe( (race: RaceDescription) => {
+      console.log("Latest Race Description", race);
+      this.latestRaceDescription = race;
+    })
   }
 
   sortedParticipants(): Participant[]{

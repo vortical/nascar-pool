@@ -266,8 +266,8 @@ const participants = [
 
 // return lowercase dash separated string
 function encodeRaceName(s: string): string{
-//  return s.replace(/\s/g,"-").toLowerCase()
-  return "daytona-500";
+  return s.replace(/\s/g,"-").toLowerCase()
+  //return "daytona-500";
 }
 
 
@@ -281,6 +281,16 @@ export class NascarService {
 
   constructor(private http: Http) {}
 
+
+  getLatestRaceDescription():Observable<RaceDescription>{
+    return this.getRaceDescriptions().map(descriptions => {
+      console.log("Got race descriptions! Now getting last race...")
+      let latestRace = RaceDescriptions.getLatestRace(descriptions);
+      console.log("Latest race name is:"+ latestRace);
+      return latestRace;
+    })
+
+  }
 
   getLastRaceResults():Observable<DriverRaceResult[]>{
     // this will get the last race file from nascar website.
@@ -322,34 +332,45 @@ export class NascarService {
     return this.latestRaceResults;
   }
 
+
   getParticipants(): Observable<Participant[]>{
-    return this.getDrivers().map((drivers: Driver[]) => {
-      // at this point I have all the drivers, let's fill up our participant strutures!
+
+    return Observable.forkJoin(this.getDrivers(), this.getLastRaceResults()).map( r => {
+      let drivers = r[0];
+      let lastRaceResults = r[1];
+
+
       participants.forEach((p: Participant)=>{
-          console.log("PARTICIPANT: "+p.name);
+
           let driverSelections = p.drivers;
           let points = 0;
           let wins = 0;
           let top5 = 0;
           let top10 = 0;
+          let lastRacePoints = 0;
 
           driverSelections.forEach((driverSelection: DriverSelection) => {
             let driver = drivers.find((d: Driver) => d.name == driverSelection.name);
+            let driverLastRaceResults = lastRaceResults.find((r:DriverRaceResult) => r.driverName == driverSelection.name);
+
             if(!driver){
               console.log("Did not find driver:", driverSelection.name);
             }
-            console.log("driver points: "+driverSelection.name +" points:"+ driver.points);
+
+            driverSelection.lastRacePoints = driverLastRaceResults.points;
             driverSelection.points = driver.points;
             points += driver.points;
             wins += driver.wins;
             top5 +=driver.top5;
             top10 += driver.top10;
+            lastRacePoints += driverLastRaceResults.points
 
           })
           p.points = points;
           p.wins = wins;
           p.top5 = top5;
           p.top10 = top10;
+          p.lastRacePoints = lastRacePoints;
 
       })
 
@@ -361,9 +382,15 @@ export class NascarService {
         p.pointsBehind = leaderPoints - p.points;
       });
 
+      let previousRaceSortedParticipants = participants.sort((a: Participant, b: Participant) => b.previousPoints() - a.previousPoints());
+      previousRaceSortedParticipants.forEach((p: Participant, i) =>{
+        p.previousPosition = i+1;
+      })
 
       return sortedParticpants;
-    })
+    });
+
+
   }
 
   getDrivers(): Observable<Driver[]> {

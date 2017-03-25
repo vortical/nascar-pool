@@ -26,6 +26,7 @@ export class RaceDescriptions{
 
 }
 export class RaceDescription {
+    location: string;
     name: string;
     number: number;
     distance: number;
@@ -35,6 +36,7 @@ export class RaceDescription {
 
     static mapFromData(o?: any): RaceDescription{
       let r = new RaceDescription();
+      r.location = o.location;
       r.name = o.name;
       r.number = o.number;
       r.distance = o.distance;
@@ -69,16 +71,16 @@ export class DriverRaceResult {
       if (!obj) {
           return r;
       }
-      r.finishPosition = obj.finish_position;
-      r.inChase = obj.is_in_chase;
-      r.carNumber = obj.car_number;
+      r.finishPosition = Number(obj.finish_position);
+      r.inChase = Boolean(obj.is_in_chase);
+      r.carNumber = Number(obj.car_number);
       r.driverName = obj.driver_name;
-      r.startPosition = obj.start_position;
-      r.laps = obj.laps;
-      r.lapsLed = obj.laps_led;
+      r.startPosition = Number(obj.start_position);
+      r.laps = Number(obj.laps);
+      r.lapsLed = Number(obj.laps_led);
       r.finalStatus = obj.finalStatus;
-      r.points = obj.points;
-      r.bonus = obj.bonus;
+      r.points = Number(obj.points);
+      r.bonus = Number(obj.bonus);
       return r;
     }
 
@@ -104,6 +106,9 @@ export class Participant {
     top10: number;
     name: string;
     pointsBehind: number;
+    lastRacePoints: number;
+    previousPosition: number
+
     drivers: DriverSelection[];
 
     constructor(data: any) {
@@ -113,6 +118,27 @@ export class Participant {
 
     totalPoints(): number {
         return this.points * 1000000 + this.wins * 10000 + this.top5 * 100 + this.top10;
+    }
+
+    previousPoints(): number{
+      return this.points - this.lastRacePoints;
+    }
+
+    deltaPosition(): number{
+      return this.previousPosition - this.position;
+    }
+
+    deltaPositionAsString(): string{
+      let dp = this.deltaPosition();
+      if (dp == 0){
+        return "";
+      }
+
+      if (dp >= 0){
+        return "+"+dp;
+      }
+
+      return ""+dp;
     }
 }
 
@@ -128,7 +154,8 @@ export class DriverGroup {
 
 export class DriverSelection {
     points: number;
-
+    lastRacePoints: number;
+    
     constructor(public groupId: number, public name: string) {
 
     }
