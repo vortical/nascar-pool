@@ -3,10 +3,18 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { Driver, Participant, DriverSelection } from './driver.model';
+import { Driver, Participant, DriverSelection, RaceDescription, RaceDescriptions, DriverRaceResult } from './driver.model';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 
-const POINT_FEED_URL = 'https://www.nascar.com/cacher/2017/1/points-feed.json';
+
+
+const NASCAR_BASE_URL = 'https://www.nascar.com';
+const NASCAR_POINT_FEED_URL = NASCAR_BASE_URL+'/cacher/2017/1/points-feed.json';
+const NASCAR_RACE_RESULT_BASE_URL = "http://www.nascar.com/content/nascar/en_us/monster-energy-nascar-cup-series/standings/results/2017/";
+const NASCAR_RACE_RESULT_URL_SUFFIX = "/jcr:content/raceResults.2016RaceResults.results.json";
+
+const RACES_URL = '/assets/data/races.json';
 
 const participants = [
   new Participant({
@@ -256,17 +264,63 @@ const participants = [
   })
 ];
 
-
-
+// return lowercase dash separated string
+function encodeRaceName(s: string): string{
+//  return s.replace(/\s/g,"-").toLowerCase()
+  return "daytona-500";
+}
 
 
 @Injectable()
 export class NascarService {
-
+// See this for concurrent requests:
+//https://www.metaltoad.com/blog/angular-2-http-observables-and-concurrent-data-loading
+  races: Observable<RaceDescription[]>;
   drivers: Observable<Driver[]>;
+  latestRaceResults:Observable<DriverRaceResult[]>;
 
   constructor(private http: Http) {}
 
+
+  getLastRaceResults():Observable<DriverRaceResult[]>{
+    // this will get the last race file from nascar website.
+
+    // get race descriptions and find the latest race name, then call getLatestRaceResult
+    return this.getRaceDescriptions().flatMap(descriptions => {
+      console.log("Got race descriptions! Now getting last race...")
+      let latestRace = RaceDescriptions.getLatestRace(descriptions);
+      console.log("Latest race name is:"+ latestRace+", now getting results from nascar site...");
+      return this.getLatestRaceResult(latestRace.name);
+    })
+  }
+
+  getRaceDescriptions(): Observable<RaceDescription[]>{
+    if (!this.races){
+      this.races = this.http.get(RACES_URL)
+        .map((response: Response) => {
+          return response.json().map( r => {
+            return RaceDescription.mapFromData(r);
+          })
+      })
+    }
+    return this.races;
+  }
+
+  getLatestRaceResult(racename: string):Observable<DriverRaceResult[]>{
+
+    if (!this.latestRaceResults){
+      let encodedRaceName = encodeRaceName(racename);
+      let url = NASCAR_RACE_RESULT_BASE_URL+encodedRaceName+NASCAR_RACE_RESULT_URL_SUFFIX;
+        console.log("get lates result from site with url: "+url);
+      this.latestRaceResults = this.http.get(url)
+        .map((response: Response) => {
+          return  response.json().results.map(obj => {
+              return DriverRaceResult.mapFromData(obj);
+          })
+        })
+    }
+    return this.latestRaceResults;
+  }
 
   getParticipants(): Observable<Participant[]>{
     return this.getDrivers().map((drivers: Driver[]) => {
@@ -314,7 +368,7 @@ export class NascarService {
 
   getDrivers(): Observable<Driver[]> {
     if (!this.drivers){
-      this.drivers = this.http.get(POINT_FEED_URL)
+      this.drivers = this.http.get(NASCAR_POINT_FEED_URL)
         .map((response: Response) => {
           return (<any>response.json()).map( driver => {
             return Driver.mapFromObject(driver);

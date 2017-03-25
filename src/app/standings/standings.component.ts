@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NascarService } from '../nascar.service';
 
-import { Participant, Driver } from '../driver.model';
+import { Participant, Driver, RaceDescription, DriverRaceResult } from '../driver.model';
 
 @Component({
   selector: 'standings',
@@ -12,6 +12,8 @@ export class StandingsComponent implements OnInit {
 
   drivers: Driver[];
 
+  races: RaceDescription[];
+  raceResults: DriverRaceResult[];
   participants: Participant[];
 
   constructor(private nascarService: NascarService) {
@@ -22,7 +24,17 @@ export class StandingsComponent implements OnInit {
 
     this.nascarService.getParticipants().subscribe( (participants: Participant[]) => {
             this.participants = participants;
-        })
+        });
+
+    this.nascarService.getRaceDescriptions().subscribe( (races: RaceDescription[]) => {
+        console.log("Got Races", races)
+        this.races = races;
+    });
+
+    this.nascarService.getLastRaceResults().subscribe( (raceResults: DriverRaceResult[]) => {
+      console.log("Got Races", raceResults);
+      this.raceResults = raceResults;
+    });
   }
 
   sortedParticipants(): Participant[]{
