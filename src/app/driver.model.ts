@@ -21,6 +21,12 @@ export class RaceDescriptions{
 
   }
 
+  static getRace( races: RaceDescription[], index: number):RaceDescription{
+    let race =  races.find((r: RaceDescription) => r.number == index);
+    console.log("found race:", race);
+    return race;
+
+  }
 
 
 
@@ -155,7 +161,7 @@ export class DriverGroup {
 export class DriverSelection {
     points: number;
     lastRacePoints: number;
-    
+
     constructor(public groupId: number, public name: string) {
 
     }

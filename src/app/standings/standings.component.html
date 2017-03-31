@@ -5,7 +5,7 @@
 <H3>{{latestRaceDescription.name}} @ {{latestRaceDescription.location}}</H3>
 </div>
 -->
-<race-description [raceDescription]="latestRaceDescription"></race-description>
+<race-description [raceDescription]="latestRaceDescription" [isOngoing]="isOngoing()"></race-description>
 
 <div class="ui grid posts">
   <participant-row *ngFor="let participant of sortedParticipants(); let i=index" [participant]="participant" [showDriverSummaries]="showDriverSummaries"></participant-row>

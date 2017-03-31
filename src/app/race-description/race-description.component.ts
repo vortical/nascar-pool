@@ -6,11 +6,12 @@ import { RaceDescription} from '../driver.model';
   selector: 'race-description',
   templateUrl: './race-description.component.html',
   styleUrls: ['./race-description.component.css'],
-  inputs: ['raceDescription']
+  inputs: ['raceDescription','isOngoing']
 })
 export class RaceDescriptionComponent implements OnInit {
 
   raceDescription: RaceDescription;
+  isOngoing: boolean;
 
   constructor() { }
 

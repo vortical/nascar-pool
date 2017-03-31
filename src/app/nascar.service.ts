@@ -9,7 +9,7 @@ import 'rxjs/add/operator/mergeMap';
 
 
 
-const NASCAR_BASE_URL = 'https://www.nascar.com';
+const NASCAR_BASE_URL = 'http://www.nascar.com';
 const NASCAR_POINT_FEED_URL = NASCAR_BASE_URL+'/cacher/2017/1/points-feed.json';
 const NASCAR_RACE_RESULT_BASE_URL = "http://www.nascar.com/content/nascar/en_us/monster-energy-nascar-cup-series/standings/results/2017/";
 const NASCAR_RACE_RESULT_URL_SUFFIX = "/jcr:content/raceResults.2016RaceResults.results.json";
@@ -62,7 +62,7 @@ const participants = [
     ]
   }),
   new Participant({
-    name: "Marie Belanger",
+    name: "Mary Belanger",
     drivers:[
       new DriverSelection(1, 'Joey Logano'),
       new DriverSelection(2, 'Chase Elliott'),
@@ -278,9 +278,13 @@ export class NascarService {
   races: Observable<RaceDescription[]>;
   drivers: Observable<Driver[]>;
   latestRaceResults:Observable<DriverRaceResult[]>;
+  isOngoig: boolean = false;
 
   constructor(private http: Http) {}
 
+  isRaceOngoing(): boolean{
+    return this.isOngoig;
+  }
 
   getLatestRaceDescription():Observable<RaceDescription>{
     return this.getRaceDescriptions().map(descriptions => {
@@ -292,15 +296,38 @@ export class NascarService {
 
   }
 
-  getLastRaceResults():Observable<DriverRaceResult[]>{
+  getLastRaceResults(previous?: boolean):Observable<DriverRaceResult[]>{
     // this will get the last race file from nascar website.
+
+    var latestRace;
 
     // get race descriptions and find the latest race name, then call getLatestRaceResult
     return this.getRaceDescriptions().flatMap(descriptions => {
       console.log("Got race descriptions! Now getting last race...")
-      let latestRace = RaceDescriptions.getLatestRace(descriptions);
+      latestRace = RaceDescriptions.getLatestRace(descriptions);
+      if(previous){
+        latestRace = RaceDescriptions.getRace(descriptions, latestRace.number-1);
+        return this.getLatestRaceResult(latestRace.name, true)
+      }
       console.log("Latest race name is:"+ latestRace+", now getting results from nascar site...");
-      return this.getLatestRaceResult(latestRace.name);
+      return this.getLatestRaceResult(latestRace.name)
+    }).flatMap(results =>{
+      if (results.length == 0){
+        this.isOngoig = true;
+        return this.getLastRaceResults(true);
+
+      }else{
+         return Observable.from([results]);
+        // let source = Observable.create(function (observer) {
+        //   observer.onNext(results);
+        //   observer.onCompleted();
+        // });
+        // return source;
+      }
+
+
+
+
     })
   }
 
@@ -316,12 +343,12 @@ export class NascarService {
     return this.races;
   }
 
-  getLatestRaceResult(racename: string):Observable<DriverRaceResult[]>{
+  getLatestRaceResult(racename: string, force?: boolean):Observable<DriverRaceResult[]>{
 
-    if (!this.latestRaceResults){
+    if (!this.latestRaceResults || force){
       let encodedRaceName = encodeRaceName(racename);
       let url = NASCAR_RACE_RESULT_BASE_URL+encodedRaceName+NASCAR_RACE_RESULT_URL_SUFFIX;
-        console.log("get lates result from site with url: "+url);
+        //console.log("get lates result from site with url: "+url);
       this.latestRaceResults = this.http.get(url)
         .map((response: Response) => {
           return  response.json().results.map(obj => {

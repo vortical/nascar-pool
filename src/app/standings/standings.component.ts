@@ -44,6 +44,9 @@ export class StandingsComponent implements OnInit {
     })
   }
 
+  isOngoing(): boolean {
+    return this.nascarService.isRaceOngoing();
+  }
   sortedParticipants(): Participant[]{
     if (this.participants){
       return this.participants.sort((a: Participant, b: Participant) => b.totalPoints() - a.totalPoints());
