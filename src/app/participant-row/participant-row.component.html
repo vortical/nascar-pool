@@ -1,4 +1,4 @@
-<div class="four wide column center aligned votes">
+<div class="five wide column center aligned votes">
   <div class="ui statistic">
     <div class="value">
       {{participant.points}}
@@ -14,7 +14,7 @@
   </div>
   <ul class="ui big horizontal list voters">
 
-    <li *ngIf="participant.deltaPosition() > 0" class="item">
+    <li *ngIf="participant.deltaPosition() > 0 && participant.deltaPosition() < 3" class="item">
 
       <div class="gainPos">
         <span class="meta">({{participant.lastRacePoints}})</span>
@@ -22,6 +22,27 @@
         {{participant.deltaPositionAsString()}}
       </div>
     </li>
+
+    <li *ngIf="participant.deltaPosition() > 2 && participant.name != 'Alain Belanger'" class="item">
+
+      <div class="gainPos">
+        <span class="meta">({{participant.lastRacePoints}})</span>
+        <i class="rocket icon"></i>
+        {{participant.deltaPositionAsString()}}
+      </div>
+    </li>
+
+    <li *ngIf="participant.deltaPosition() > 2 && participant.name == 'Alain Belanger'" class="item">
+
+      <div class="gainPos">
+        <span class="meta">({{participant.lastRacePoints}})</span>
+        <i class="handicap icon"></i>
+        {{participant.deltaPositionAsString()}}
+      </div>
+    </li>
+
+
+
 
     <li *ngIf="participant.deltaPosition() < 0 &&  participant.deltaPosition()> -3" class="item">
       <div class="losePos">
@@ -38,17 +59,26 @@
       </div>
     </li>
 
-    <li *ngIf="participant.deltaPosition() == 0" class="item">
+
+    <li *ngIf="participant.deltaPosition() == 0 && participant.position > 1" class="item">
       <div>
         <span class="meta">({{participant.lastRacePoints}})</span>
-        <i class="minus icon"></i>
+        <i class="meh icon"></i>
         {{participant.deltaPositionAsString()}}
       </div>
     </li>
+
+        <li *ngIf="participant.deltaPosition() == 0 && participant.position == 1" class="item">
+          <div>
+            <span class="meta">({{participant.lastRacePoints}})</span>
+            <i class="dollar icon"></i>
+            {{participant.deltaPositionAsString()}}
+          </div>
+        </li>
   </ul>
 </div>
 
-<div class="twelve wide column">
+<div class="eleven wide column">
   <div class="ui large header">
     ({{participant.position}}) {{participant.name}}
   </div>

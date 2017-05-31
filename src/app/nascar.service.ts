@@ -266,6 +266,9 @@ const participants = [
 
 // return lowercase dash separated string
 function encodeRaceName(s: string): string{
+  s = s.replace(/\s/g,"-").toLowerCase()
+  s = s.replace("'","")
+
   return s.replace(/\s/g,"-").toLowerCase()
   //return "daytona-500";
 }
