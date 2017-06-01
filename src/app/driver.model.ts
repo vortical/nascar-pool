@@ -94,7 +94,7 @@ export class DriverRaceResult {
         if (this.finishPosition == 1) {
             return 40;
         }
-        return Math.max(1, 35 - this.finishPosition - 2);
+        return Math.max(1, 35 - (this.finishPosition - 2));
     }
 
     stagePoints(): number {
@@ -116,6 +116,8 @@ export class Participant {
     previousPosition: number
 
     drivers: DriverSelection[];
+
+
 
     constructor(data: any) {
         this.name = data.name;

@@ -16,6 +16,39 @@ const NASCAR_RACE_RESULT_URL_SUFFIX = "/jcr:content/raceResults.2016RaceResults.
 
 const RACES_URL = '/assets/data/races.json';
 
+const DriverAdjustments = {
+  "Aric Almirola":{
+    name: "Aric Almirola",
+    lastRacePoints:{
+      raceNo :12,
+      reasonForPoints: "Regan Smith",
+      points: 15,
+      finishPosition: 22
+    },
+    totalPointsAdjustment:15,
+    totalWinsAdjustment:0,
+    totalTop5Adjustment:0,
+    totalTop10Adjustoment:0
+  }
+};
+
+function getDriverAdjustments(name){
+  console.log("getDriverAdjustments:", name)
+  var adjustements = DriverAdjustments[name];
+  if(adjustements == undefined){
+    console.log("getDriverAdjustments: there were none for", name)
+    adjustements = {
+      lastRacePoints:{},
+      totalPointsAdjustment:0,
+      totalWinsAdjustment:0,
+      totalTop5Adjustment:0,
+      totalTop10Adjustoment:0
+    }
+
+  }
+  return adjustements;
+}
+
 const participants = [
   new Participant({
     name: 'Paul Teasdale',
@@ -365,9 +398,10 @@ export class NascarService {
 
   getParticipants(): Observable<Participant[]>{
 
-    return Observable.forkJoin(this.getDrivers(), this.getLastRaceResults()).map( r => {
+    return Observable.forkJoin(this.getDrivers(), this.getLastRaceResults(), this.getLatestRaceDescription()).map( r => {
       let drivers = r[0];
       let lastRaceResults = r[1];
+      let latestRaceDescription: RaceDescription = r[2];
 
 
       participants.forEach((p: Participant)=>{
@@ -382,9 +416,31 @@ export class NascarService {
           driverSelections.forEach((driverSelection: DriverSelection) => {
             let driver = drivers.find((d: Driver) => d.name == driverSelection.name);
             let driverLastRaceResults = lastRaceResults.find((r:DriverRaceResult) => r.driverName == driverSelection.name);
+            let driverAdjustment =  getDriverAdjustments(driver.name);
 
             if(!driver){
               console.log("Did not find driver:", driverSelection.name);
+            }
+
+            if(!driverLastRaceResults){
+              console.log("Did not find latest results for driver:",driver.name);
+
+              // when this happens we'd assume that there is a replacement driver for the participan
+              // what is the group for this driver:
+
+              if (driverAdjustment){
+                let lastRacePoints =  driverAdjustment.lastRacePoints;
+                driverLastRaceResults = new DriverRaceResult();
+                if(lastRacePoints.raceNo == latestRaceDescription.number){
+                  console.log("Found corrected driver's last race points",driver.name);
+                  driverLastRaceResults.points = lastRacePoints.points;
+                  driverLastRaceResults.finishPosition = lastRacePoints.finishPosition;
+                }else{
+                  console.log("We need to correct driver's last race points",driver.name);
+                  driverLastRaceResults.points = 0;
+                  driverLastRaceResults.finishPosition = 99;
+                }
+              }
             }
 
             driverSelection.lastRacePoints = driverLastRaceResults.points;
@@ -394,7 +450,14 @@ export class NascarService {
             top5 +=driver.top5;
             top10 += driver.top10;
             lastRacePoints += driverLastRaceResults.points
-
+            if (driverAdjustment){
+              //todo: adjust points etc....
+              points += driverAdjustment.totalPointsAdjustment;
+              wins += driverAdjustment.totalWinsAdjustment;
+              top5 += driverAdjustment.totalTop5Adjustment;
+              top10 += driverAdjustment.totalTop10Adjustoment;
+              driverSelection.points += driverAdjustment.totalPointsAdjustment;
+            }
           })
           p.points = points;
           p.wins = wins;

@@ -23,7 +23,7 @@
       </div>
     </li>
 
-    <li *ngIf="participant.deltaPosition() > 2 && participant.name != 'Alain Belanger'" class="item">
+    <li *ngIf="participant.deltaPosition() > 2" class="item">
 
       <div class="gainPos">
         <span class="meta">({{participant.lastRacePoints}})</span>
@@ -31,18 +31,6 @@
         {{participant.deltaPositionAsString()}}
       </div>
     </li>
-
-    <li *ngIf="participant.deltaPosition() > 2 && participant.name == 'Alain Belanger'" class="item">
-
-      <div class="gainPos">
-        <span class="meta">({{participant.lastRacePoints}})</span>
-        <i class="handicap icon"></i>
-        {{participant.deltaPositionAsString()}}
-      </div>
-    </li>
-
-
-
 
     <li *ngIf="participant.deltaPosition() < 0 &&  participant.deltaPosition()> -3" class="item">
       <div class="losePos">
