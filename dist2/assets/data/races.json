@@ -1,0 +1,291 @@
+[{
+
+
+            "location": "DAYTONA INTERNATIONAL SPEEDWAY",
+            "name": "Daytona 500",
+            "number": 1,
+            "distance": 500,
+            "laps": 200,
+            "chase_race": false,
+            "scheduled": "2017-02-26T19:00:00+00:00"
+        },{
+            "location": "ATLANTA MOTOR SPEEDWAY",
+            "name": "Folds of Honor QuikTrip 500",
+            "number": 2,
+            "distance": 500,
+            "laps": 325,
+            "chase_race": false,
+            "scheduled": "2017-03-05T19:30:00+00:00"
+    }, {
+            "location": "LAS VEGAS MOTOR SPEEDWAY",
+            "name": "Kobalt 400",
+            "number": 3,
+            "distance": 400,
+            "laps": 267,
+            "chase_race": false,
+            "scheduled": "2017-03-12T19:30:00+00:00"
+    }, {
+            "location": "PHOENIX INTERNATIONAL RACEWAY",
+            "name": "Camping World 500",
+            "number": 4,
+            "distance": 312,
+            "laps": 312,
+            "chase_race": false,
+            "scheduled": "2017-03-19T19:30:00+00:00"
+    }, {
+            "location": "AUTO CLUB SPEEDWAY",
+            "name": "Auto Club 400",
+            "number": 5,
+            "distance": 400,
+            "laps": 200,
+            "chase_race": false,
+            "scheduled": "2017-03-26T19:30:00+00:00"
+    }, {
+            "location": "MARTINSVILLE SPEEDWAY",
+            "name": "STP 500",
+            "number": 6,
+            "distance": 263,
+            "laps": 500,
+            "chase_race": false,
+            "scheduled": "2017-04-02T18:00:00+00:00"
+    }, {
+            "location": "TEXAS MOTOR SPEEDWAY",
+            "name": "O'Reilly Auto Parts 500",
+            "number": 7,
+            "distance": 500,
+            "laps": 334,
+            "chase_race": false,
+            "scheduled": "2017-04-09T17:30:00+00:00"
+    }, {
+            "location": "BRISTOL MOTOR SPEEDWAY",
+            "name": "Food City 500",
+            "number": 8,
+            "distance": 267,
+            "laps": 500,
+            "chase_race": false,
+            "scheduled": "2017-04-23T18:00:00+00:00"
+    }, {
+            "location": "RICHMOND INTERNATIONAL RACEWAY",
+            "name": "Toyota Owners 400",
+            "number": 9,
+            "distance": 300,
+            "laps": 400,
+            "chase_race": false,
+            "scheduled": "2017-04-30T18:00:00+00:00"
+    }, {
+            "location": "TALLADEGA SUPERSPEEDWAY",
+            "name": "GEICO 500",
+            "number": 10,
+            "distance": 500,
+            "laps": 188,
+            "chase_race": false,
+            "scheduled": "2017-05-07T18:00:00+00:00"
+    }, {
+            "location": "KANSAS SPEEDWAY",
+            "name": "Go Bowling 400",
+            "number": 11,
+            "distance": 400,
+            "laps": 267,
+            "chase_race": false,
+            "scheduled": "2017-05-13T23:30:00+00:00"
+    }, {
+            "location": "CHARLOTTE MOTOR SPEEDWAY",
+            "name": "CocaCola 600",
+            "number": 12,
+            "distance": 600,
+            "laps": 400,
+            "chase_race": false,
+            "scheduled": "2017-05-28T22:00:00+00:00"
+    }, {
+            "location": "DOVER INTERNATIONAL SPEEDWAY",
+            "name": "AAA 400 Drive for Autism",
+            "number": 13,
+            "distance": 400,
+            "laps": 400,
+            "chase_race": false,
+            "scheduled": "2017-06-04T17:00:00+00:00"
+    }, {
+            "location": "POCONO RACEWAY",
+            "name": "Pocono 400",
+            "number": 14,
+            "distance": 400,
+            "laps": 160,
+            "chase_race": false,
+            "scheduled": "2017-06-11T19:00:00+00:00"
+    }, {
+            "location": "MICHIGAN INTERNATIONAL SPEEDWAY",
+            "name": "FireKeepers Casino 400",
+            "number": 15,
+            "distance": 400,
+            "laps": 200,
+            "chase_race": false,
+            "scheduled": "2017-06-18T19:00:00+00:00"
+    }, {
+            "location": "SONOMA RACEWAY",
+            "name": "Toyota/Save Mart 350",
+            "number": 16,
+            "distance": 224,
+            "laps": 110,
+            "chase_race": false,
+            "scheduled": "2017-06-25T19:00:00+00:00"
+    }, {
+            "location": "DAYTONA INTERNATIONAL SPEEDWAY",
+            "name": "Coke Zero 400 Powered by Coca-Cola",
+            "number": 17,
+            "distance": 400,
+            "laps": 160,
+            "chase_race": false,
+            "scheduled": "2017-07-01T23:30:00+00:00"
+    }, {
+            "location": "KENTUCKY SPEEDWAY",
+            "name": "Quaker State 400",
+            "number": 18,
+            "distance": 400,
+            "laps": 267,
+            "chase_race": false,
+            "scheduled": "2017-07-08T23:30:00+00:00"
+    }, {
+            "location": "NEW HAMPSHIRE MOTOR SPEEDWAY",
+            "name": "New Hampshire 301",
+            "number": 19,
+            "distance": 318,
+            "laps": 301,
+            "chase_race": false,
+            "scheduled": "2017-07-16T19:00:00+00:00"
+    }, {
+            "location": "INDIANAPOLIS MOTOR SPEEDWAY",
+            "name": "Crown Royal 400 at The Brickyard",
+            "number": 20,
+            "distance": 400,
+            "laps": 160,
+            "chase_race": false,
+            "scheduled": "2017-07-23T19:00:00+00:00"
+    }, {
+            "location": "POCONO RACEWAY",
+            "name": "Pennsylvania 400",
+            "number": 21,
+            "distance": 400,
+            "laps": 160,
+            "chase_race": false,
+            "scheduled": "2017-07-30T19:00:00+00:00"
+    }, {
+            "location": "WATKINS GLEN INTERNATIONAL",
+            "name": "Watkins Glen 355",
+            "number": 22,
+            "distance": 220,
+            "laps": 90,
+            "chase_race": false,
+            "scheduled": "2017-08-06T19:00:00+00:00"
+    }, {
+            "location": "MICHIGAN INTERNATIONAL SPEEDWAY",
+            "name": "Pure Michigan 400",
+            "number": 23,
+            "distance": 400,
+            "laps": 200,
+            "chase_race": false,
+            "scheduled": "2017-08-13T19:00:00+00:00"
+    }, {
+            "location": "BRISTOL MOTOR SPEEDWAY",
+            "name": "Bass Pro Shops NRA Night Race",
+            "number": 24,
+            "distance": 267,
+            "laps": 500,
+            "chase_race": false,
+            "scheduled": "2017-08-19T23:30:00+00:00"
+    }, {
+            "location": "DARLINGTON RACEWAY",
+            "name": "Bojangles' Southern 500",
+            "number": 25,
+            "distance": 501,
+            "laps": 367,
+            "chase_race": false,
+            "scheduled": "2017-09-03T22:00:00+00:00"
+    }, {
+            "location": "RICHMOND INTERNATIONAL RACEWAY",
+            "name": "Federated Auto Parts 400",
+            "number": 26,
+            "distance": 300,
+            "laps": 400,
+            "chase_race": false,
+            "scheduled": "2017-09-09T23:30:00+00:00"
+    }, {
+            "location": "CHICAGOLAND SPEEDWAY",
+            "name": "Chicago 400",
+            "number": 27,
+            "distance": 400,
+            "laps": 267,
+            "chase_race": true,
+            "scheduled": "2017-09-17T19:00:00+00:00"
+    }, {
+            "location": "NEW HAMPSHIRE MOTOR SPEEDWAY",
+            "name": "New England 300",
+            "number": 28,
+            "distance": 317,
+            "laps": 300,
+            "chase_race": true,
+            "scheduled": "2017-09-24T18:00:00+00:00"
+    }, {
+            "location": "DOVER INTERNATIONAL SPEEDWAY",
+            "name": "Delaware 400",
+            "number": 29,
+            "distance": 400,
+            "laps": 400,
+            "chase_race": true,
+            "scheduled": "2017-10-01T18:00:00+00:00"
+    }, {
+            "location": "CHARLOTTE MOTOR SPEEDWAY",
+            "name": "Bank of America 500",
+            "number": 30,
+            "distance": 501,
+            "laps": 334,
+            "chase_race": true,
+            "scheduled": "2017-10-07T23:00:00+00:00"
+    }, {
+            "location": "TALLADEGA SUPERSPEEDWAY",
+            "name": "Alabama 500",
+            "number": 31,
+            "distance": 500,
+            "laps": 188,
+            "chase_race": true,
+            "scheduled": "2017-10-15T18:00:00+00:00"
+    }, {
+            "location": "KANSAS SPEEDWAY",
+            "name": "Hollywood Casino 400",
+            "number": 32,
+            "distance": 400,
+            "laps": 267,
+            "chase_race": true,
+            "scheduled": "2017-10-22T19:00:00+00:00"
+    }, {
+            "location": "MARTINSVILLE SPEEDWAY",
+            "name": "Goody's Fast Relief 500",
+            "number": 33,
+            "distance": 263,
+            "laps": 500,
+            "chase_race": true,
+            "scheduled": "2017-10-29T17:00:00+00:00"
+    }, {
+            "location": "TEXAS MOTOR SPEEDWAY",
+            "name": "AAA Texas 500",
+            "number": 34,
+            "distance": 500,
+            "laps": 334,
+            "chase_race": true,
+            "scheduled": "2017-11-05T19:00:00+00:00"
+    }, {
+            "location": "PHOENIX INTERNATIONAL RACEWAY",
+            "name": "Can-Am 500",
+            "number": 35,
+            "distance": 312,
+            "laps": 312,
+            "chase_race": true,
+            "scheduled": "2017-11-12T19:30:00+00:00"
+    }, {
+            "location": "HOMESTEAD-MIAMI SPEEDWAY",
+            "name": "Ford Ecoboost 400",
+            "number": 36,
+            "distance": 400,
+            "laps": 267,
+            "chase_race": true,
+            "scheduled": "2017-11-19T19:30:00+00:00"
+    }]
