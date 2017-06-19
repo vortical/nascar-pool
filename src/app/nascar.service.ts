@@ -20,12 +20,12 @@ const DriverAdjustments = {
   "Aric Almirola":{
     name: "Aric Almirola",
     lastRacePoints:{
-      raceNo :12,
-      reasonForPoints: "Regan Smith",
-      points: 15,
-      finishPosition: 22
+      raceNo :15,
+      reasonForPoints: "DARRELL WALLACE JR",
+      points: 18,
+      finishPosition: 19
     },
-    totalPointsAdjustment:15,
+    totalPointsAdjustment:47, //29 + 18
     totalWinsAdjustment:0,
     totalTop5Adjustment:0,
     totalTop10Adjustoment:0
