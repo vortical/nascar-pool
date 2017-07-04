@@ -20,12 +20,12 @@ const DriverAdjustments = {
   "Aric Almirola":{
     name: "Aric Almirola",
     lastRacePoints:{
-      raceNo :15,
+      raceNo :17,
       reasonForPoints: "DARRELL WALLACE JR",
-      points: 18,
-      finishPosition: 19
+      points: 24,  //22 + 2 points
+      finishPosition: 15 // 15th and position 9 stage 2
     },
-    totalPointsAdjustment:47, //29 + 18
+    totalPointsAdjustment:86, //29 + 18 -> 47 + 15 -> 62+24
     totalWinsAdjustment:0,
     totalTop5Adjustment:0,
     totalTop10Adjustoment:0
@@ -301,6 +301,7 @@ const participants = [
 function encodeRaceName(s: string): string{
   s = s.replace(/\s/g,"-").toLowerCase()
   s = s.replace("'","")
+  s = s.replace("\/","--")
 
   return s.replace(/\s/g,"-").toLowerCase()
   //return "daytona-500";
